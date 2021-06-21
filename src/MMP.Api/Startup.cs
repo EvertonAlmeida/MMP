@@ -5,7 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MMP.Api.Configuration;
 using MMP.Infra.Data.Context;
+using MediatR;
+using System;
+using MMP.Application.AutoMapper;
 
 namespace MMP.Api
 {
@@ -25,11 +29,15 @@ namespace MMP.Api
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddAutoMapper(typeof(AutoMapperConfig));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MMP.Api", Version = "v1" });
             });
+
+            services.ResolveDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
