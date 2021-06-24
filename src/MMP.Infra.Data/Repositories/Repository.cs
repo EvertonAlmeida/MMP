@@ -4,13 +4,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MMP.Domain.Interfaces.Repository;
+using MMP.Domain.Interfaces;
 using MMP.Domain.Models;
 using MMP.Infra.Data.Context;
 
 namespace MMP.Infra.Data.Repositories
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly MmpDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
@@ -48,9 +48,9 @@ namespace MMP.Infra.Data.Repositories
             await SaveChanges();
         }
 
-        public virtual async Task Remove(Guid id)
+        public virtual async Task Remove(TEntity entity)
         {
-            DbSet.Remove(new TEntity { Id = id });
+            DbSet.Remove(entity);
             await SaveChanges();
         }
 

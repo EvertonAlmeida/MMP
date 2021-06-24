@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MMP.Domain.Models;
 
-namespace MMP.Domain.Interfaces.Repository
+namespace MMP.Domain.Interfaces
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
@@ -12,7 +12,7 @@ namespace MMP.Domain.Interfaces.Repository
         Task<TEntity> GetById(Guid id);
         Task<IEnumerable<TEntity>> GetAll();
         Task Update(TEntity entity);
-        Task Remove(Guid id);
+        Task Remove(TEntity entity);
         Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
         Task<int> SaveChanges();
     }
