@@ -10,6 +10,7 @@ using MMP.Infra.Data.Context;
 using MediatR;
 using System;
 using MMP.Application.AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MMP.Api
 {
@@ -32,6 +33,13 @@ namespace MMP.Api
             services.AddAutoMapper(typeof(AutoMapperConfig));
 
             services.AddControllers();
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MMP.Api", Version = "v1" });
