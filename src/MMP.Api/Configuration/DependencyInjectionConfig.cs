@@ -9,6 +9,8 @@ using MMP.Application.Queries;
 using MMP.Application.ViewModels;
 using System.Collections.Generic;
 using System.Reflection;
+using MMP.Domain.Interfaces;
+using MMP.Domain.Notifications;
 
 namespace MMP.Api.Configuration
 {
@@ -20,6 +22,8 @@ namespace MMP.Api.Configuration
             services.AddScoped<IClassTypeRepository, ClassTypeRepository>();
             services.AddScoped<IClassRepository, ClassRepository>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+
+            services.AddScoped<INotifier, Notifier>();
             
             services.AddMediatR(AppDomain.CurrentDomain.Load("mmp.application"));
            
