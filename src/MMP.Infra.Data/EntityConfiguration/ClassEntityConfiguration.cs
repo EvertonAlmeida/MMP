@@ -15,7 +15,7 @@ namespace MMP.Infra.Data.EntityConfiguration
                .IsRequired();
 
             builder.Property(e => e.Description)
-                .HasColumnType("varchar(max)");
+                .HasColumnType("varchar(1000)");
 
             builder.Property(e => e.Value)
             .HasColumnType("decimal(18,2)");
