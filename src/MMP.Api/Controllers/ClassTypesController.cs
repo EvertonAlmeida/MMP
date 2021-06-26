@@ -35,6 +35,16 @@ namespace MMP.Api.Controllers
             return classType;
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ClassTypeViewModel>> GetByIdAsync(Guid id)
+        {
+            var classType = await _mediatr.Send(new GetByIdClassTypeQuery(id));
+
+            if(classType == null) return NotFound();
+
+            return classType;
+        }
+
         [HttpPost]
         public async Task<ActionResult<ClassTypeViewModel>> CreateAsync(ClassTypeViewModel classTypeViewModel)
         {
