@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClassType;
 using MMP.Application.Commands.UpdateClassType;
+using MMP.Application.Queries.GetByIdClass;
 using MMP.Application.Queries.GetClassType;
 using MMP.Application.ViewModels;
 using MMP.Domain.Interfaces;

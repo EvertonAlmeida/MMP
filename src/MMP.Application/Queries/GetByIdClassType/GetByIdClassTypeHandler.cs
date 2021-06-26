@@ -5,7 +5,7 @@ using MediatR;
 using MMP.Application.ViewModels;
 using MMP.Domain.Models.Classes.Repository;
 
-namespace MMP.Application.Queries.GetClassType
+namespace MMP.Application.Queries.GetByIdClass
 {
     public class GetByIdClassTypeHandler : IRequestHandler<GetByIdClassTypeQuery, ClassTypeViewModel>
     {  
