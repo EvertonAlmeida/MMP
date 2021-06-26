@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MMP.Domain.Models.Classes
@@ -8,7 +9,13 @@ namespace MMP.Domain.Models.Classes
         {
             Title = title;
         }
-        
+
+        public ClassType(Guid id, string title)
+        {
+            Id = id;
+            Title = title;
+        }
+
         public string Title { get; set; }
 
         /* EF Relations */

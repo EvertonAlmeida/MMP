@@ -41,7 +41,7 @@ namespace MMP.Api.Controllers
             return CustomResponse();
         }
 
-        private void NotifyErrorInvalidModel(ModelStateDictionary modelState)
+        protected void NotifyErrorInvalidModel(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
             foreach (var erro in erros)
@@ -51,12 +51,12 @@ namespace MMP.Api.Controllers
             }
         }
 
-        private void NotifyError(string errorMsg)
+        protected void NotifyError(string errorMsg)
         {
             _notifier.Handle(new Notification(errorMsg));
         }
 
-        private bool IsValidOperation()
+        protected bool IsValidOperation()
         {
             return !_notifier.IsThereAnyNotification();
         }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using MMP.Application.Commands.CreateClassType;
+using MMP.Application.Commands.UpdateClassType;
 using MMP.Application.ViewModels;
 using MMP.Domain.Models.Classes;
 
@@ -14,6 +15,7 @@ namespace MMP.Application.AutoMapper
             CreateMap<Venue, VenueViewModel>().ReverseMap();
 
             CreateMap<ClassTypeViewModel, CreateClassTypeCommand>();
+            CreateMap<ClassTypeViewModel, UpdateClassTypeCommand>();
         }
     }
 }

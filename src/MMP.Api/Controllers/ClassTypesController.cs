@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClassType;
+using MMP.Application.Commands.UpdateClassType;
 using MMP.Application.Queries.GetClassType;
 using MMP.Application.ViewModels;
 using MMP.Domain.Interfaces;
@@ -39,6 +41,24 @@ namespace MMP.Api.Controllers
             if(!ModelState.IsValid) return CustomResponse(ModelState);
 
             var classTypeCommand = _mapper.Map<CreateClassTypeCommand>(classTypeViewModel);
+
+            await _mediatr.Send(classTypeCommand);
+            
+            return CustomResponse(classTypeViewModel);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<ClassTypeViewModel>> UpdateAsync(Guid id,ClassTypeViewModel classTypeViewModel)
+        {
+            if (id != classTypeViewModel.Id)
+            {
+                NotifyError("The ids informed are not the same!!");
+                return CustomResponse();
+            }
+
+            if(!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var classTypeCommand = _mapper.Map<UpdateClassTypeCommand>(classTypeViewModel);
 
             await _mediatr.Send(classTypeCommand);
             
