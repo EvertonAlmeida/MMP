@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClassType;
+using MMP.Application.Commands.DeleteClassType;
 using MMP.Application.Commands.UpdateClassType;
 using MMP.Application.Queries.GetByIdClass;
 using MMP.Application.Queries.GetClassType;
@@ -74,6 +75,15 @@ namespace MMP.Api.Controllers
             await _mediatr.Send(classTypeCommand);
             
             return CustomResponse(classTypeViewModel);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult<bool>> DeleteAsync(Guid id)
+        {
+            var wasDeleted = await _mediatr.Send(new DeleteClassTypeCommand(id));
+            if(wasDeleted == false) return NotFound();
+            
+            return CustomResponse(wasDeleted);
         }
     }
 }
