@@ -32,9 +32,7 @@ namespace MMP.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<ClassTypeViewModel>> GetAsync()
         {
-            var classType = await _mediatr.Send(new GetClassTypeQuery());
-
-            return classType;
+            return await _mediatr.Send(new GetClassTypeQuery());
         }
 
         [HttpGet("{id:guid}")]
@@ -53,16 +51,14 @@ namespace MMP.Api.Controllers
             if(!ModelState.IsValid) return CustomResponse(ModelState);
 
             var classTypeCommand = _mapper.Map<CreateClassTypeCommand>(classTypeViewModel);
-
-            await _mediatr.Send(classTypeCommand);
             
-            return CustomResponse(classTypeViewModel);
+            return CustomResponse(await _mediatr.Send(classTypeCommand));
         }
 
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<ClassTypeViewModel>> UpdateAsync(Guid id,ClassTypeViewModel classTypeViewModel)
         {
-            if (id != classTypeViewModel.Id)
+            if (classTypeViewModel == null || id != classTypeViewModel.Id)
             {
                 NotifyError("The ids informed are not the same!!");
                 return CustomResponse();
@@ -71,19 +67,17 @@ namespace MMP.Api.Controllers
             if(!ModelState.IsValid) return CustomResponse(ModelState);
 
             var classTypeCommand = _mapper.Map<UpdateClassTypeCommand>(classTypeViewModel);
+           
+            var wasUpdated = await _mediatr.Send(classTypeCommand);
+            if(wasUpdated == false) return NotFound();
 
-            await _mediatr.Send(classTypeCommand);
-            
-            return CustomResponse(classTypeViewModel);
+            return CustomResponse(wasUpdated);
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<bool>> DeleteAsync(Guid id)
         {
-            var wasDeleted = await _mediatr.Send(new DeleteClassTypeCommand(id));
-            if(wasDeleted == false) return NotFound();
-            
-            return CustomResponse(wasDeleted);
+            return CustomResponse(await _mediatr.Send(new DeleteClassTypeCommand(id)));
         }
     }
 }

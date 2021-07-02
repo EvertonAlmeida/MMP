@@ -5,6 +5,9 @@ namespace MMP.Domain.Models.Classes
 {
     public class ClassType : Entity
     {
+
+        public ClassType() {}
+
         public ClassType(string title)
         {
             Title = title;

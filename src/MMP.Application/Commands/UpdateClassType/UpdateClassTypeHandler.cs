@@ -25,7 +25,11 @@ namespace MMP.Application.Commands.UpdateClassType
 
             if (!ExecuteValidation(new ClassTypeValidation(), classtype)) return false;
 
+            var classType = await _classTypeRepository.GetById(command.Id);
+            if(classType == null) return false;
+
             await _classTypeRepository.Update(classtype);
+
             return true;
         }
     }
