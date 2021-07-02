@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClass;
+using MMP.Application.Queries.GetClassById;
 using MMP.Application.Queries.GetClasses;
 using MMP.Application.ViewModels;
 using MMP.Domain.Interfaces;
@@ -28,9 +30,19 @@ namespace MMP.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<ClassViewModel>> GetAsync()
         {
-            var classType = await _mediatr.Send(new GetClassesQuery());
+            var classesViewModel = await _mediatr.Send(new GetClassesQuery());
 
-            return classType;
+            return classesViewModel;
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ClassViewModel>> GetByIdAsync(Guid id)
+        {
+            var classViewModel = await _mediatr.Send(new GetClassByIdQuery(id));
+
+            if(classViewModel == null) return NotFound();
+
+            return classViewModel;
         }
 
         [HttpPost]
