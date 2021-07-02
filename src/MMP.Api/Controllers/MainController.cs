@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MMP.Domain.Interfaces;
 using MMP.Domain.Notifications;
-
 namespace MMP.Api.Controllers
 {
     [ApiController]

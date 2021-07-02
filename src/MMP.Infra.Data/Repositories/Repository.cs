@@ -33,7 +33,7 @@ namespace MMP.Infra.Data.Repositories
 
         public virtual async Task<TEntity> GetById(Guid id)
         {
-            return await DbSet.FindAsync(id);
+            return await DbSet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public virtual async Task Add(TEntity entity)

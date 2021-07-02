@@ -19,15 +19,10 @@ namespace MMP.Application.ViewModels
         [StringLength(150, ErrorMessage = "The field {0} need to have between {2} and {1} caracters", MinimumLength = 2)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is required")]
-        [StringLength(350, ErrorMessage = "The field {0} need to have between {2} and {1} caracters", MinimumLength = 2)]
         public string Address { get; set; }
 
 [       Display(Name = "Is free?")]
         public bool Online { get; set; }
-
-        [Required(ErrorMessage = "The field {0} is required")]
-        [StringLength(150, ErrorMessage = "The field {0} need to have between {2} and {1} caracters", MinimumLength = 2)]
         public string Url { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]

@@ -1,4 +1,5 @@
 using AutoMapper;
+using MMP.Application.Commands.CreateClass;
 using MMP.Application.Commands.CreateClassType;
 using MMP.Application.Commands.UpdateClassType;
 using MMP.Application.ViewModels;
@@ -16,6 +17,16 @@ namespace MMP.Application.AutoMapper
 
             CreateMap<ClassTypeViewModel, CreateClassTypeCommand>();
             CreateMap<ClassTypeViewModel, UpdateClassTypeCommand>();
+
+            CreateMap<ClassViewModel, CreateClassCommand>()
+                .ConstructUsing(c => new CreateClassCommand(
+                    c.Title, c.Description, c.StartDate, c.EndDate,
+                    c.Free, c.Value, c.CompanyName, c.ClassTypeId,
+                    new CreateVenueCommand(
+                        c.Venue.Id, c.Venue.Name, c.Venue.Address, 
+                        c.Venue.Online, c.Venue.Url, c.Venue.ContactNumber)
+                )
+            );
         }
     }
 }
