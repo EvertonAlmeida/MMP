@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClassType;
 using MMP.Application.Commands.DeleteClassType;
 using MMP.Application.Commands.UpdateClassType;
-using MMP.Application.Queries.GetByIdClass;
-using MMP.Application.Queries.GetClassType;
+using MMP.Application.Queries.GetClassTypeById;
+using MMP.Application.Queries.GetClassTypes;
 using MMP.Application.ViewModels;
 using MMP.Domain.Interfaces;
 
@@ -32,13 +32,13 @@ namespace MMP.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<ClassTypeViewModel>> GetAsync()
         {
-            return await _mediatr.Send(new GetClassTypeQuery());
+            return await _mediatr.Send(new GetClassTypesQuery());
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ClassTypeViewModel>> GetByIdAsync(Guid id)
         {
-            var classType = await _mediatr.Send(new GetByIdClassTypeQuery(id));
+            var classType = await _mediatr.Send(new GetClassTypeByIdQuery(id));
 
             if(classType == null) return NotFound();
 
