@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MMP.Application.Commands.CreateClass;
+using MMP.Application.Commands.UpdateClass;
 using MMP.Application.Queries.GetClassById;
 using MMP.Application.Queries.GetClasses;
 using MMP.Application.ViewModels;
@@ -53,6 +54,25 @@ namespace MMP.Api.Controllers
             var classCommand = _mapper.Map<CreateClassCommand>(classViewModel);
 
             return CustomResponse(await _mediatr.Send(classCommand));
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<ClassViewModel>> UpdateAsync(Guid id,ClassViewModel classViewModel)
+        {
+            if (classViewModel == null || id != classViewModel.Id)
+            {
+                NotifyError("The ids informed are not the same!!");
+                return CustomResponse();
+            }
+
+            if(!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var classCommand = _mapper.Map<UpdateClassCommand>(classViewModel);
+           
+            var wasUpdated = await _mediatr.Send(classCommand);
+            if(wasUpdated == false) return NotFound();
+
+            return CustomResponse(wasUpdated);
         }
     }
 }

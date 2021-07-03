@@ -1,6 +1,7 @@
 using AutoMapper;
 using MMP.Application.Commands.CreateClass;
 using MMP.Application.Commands.CreateClassType;
+using MMP.Application.Commands.UpdateClass;
 using MMP.Application.Commands.UpdateClassType;
 using MMP.Application.ViewModels;
 using MMP.Domain.Models.Classes;
@@ -23,6 +24,16 @@ namespace MMP.Application.AutoMapper
                     c.Title, c.Description, c.StartDate, c.EndDate,
                     c.Free, c.Value, c.CompanyName, c.ClassTypeId,
                     new CreateVenueCommand(
+                        c.Venue.Id, c.Venue.Name, c.Venue.Address, 
+                        c.Venue.Online, c.Venue.Url, c.Venue.ContactNumber)
+                )
+            );
+
+            CreateMap<ClassViewModel, UpdateClassCommand>()
+                .ConstructUsing(c => new UpdateClassCommand(
+                    c.Id, c.Title, c.Description, c.StartDate, c.EndDate,
+                    c.Free, c.Value, c.CompanyName, c.ClassTypeId,
+                    new UpdateVenueCommand(
                         c.Venue.Id, c.Venue.Name, c.Venue.Address, 
                         c.Venue.Online, c.Venue.Url, c.Venue.ContactNumber)
                 )

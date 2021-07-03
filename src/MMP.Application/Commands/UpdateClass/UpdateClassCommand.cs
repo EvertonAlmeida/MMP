@@ -1,8 +1,10 @@
 using System;
 using MediatR;
-namespace MMP.Application.Commands.CreateClass
+
+namespace MMP.Application.Commands.UpdateClass
 {
-    public record CreateClassCommand(
+    public record UpdateClassCommand(
+        Guid Id,
         string Title,
         string Description,
         DateTime StartDate,
@@ -11,10 +13,10 @@ namespace MMP.Application.Commands.CreateClass
         decimal Value,
         string CompanyName,
         Guid ClassTypeId,
-        CreateVenueCommand VenueCommand
+        UpdateVenueCommand VenueCommand
         ) : IRequest<bool>;
 
-    public record CreateVenueCommand(
+    public record UpdateVenueCommand(
         Guid VenueId,
         string Name,
         string Address,

@@ -9,11 +9,11 @@ namespace MMP.Domain.Models.Classes
         public Venue() {}
         
         public Venue(
-            Guid venueId, string name, string address, bool online, 
+            Guid id, string name, string address, bool online, 
             string url, string contactNumber
             )
         {
-            VenueId = venueId;
+            Id = id;
             Name = name;
             Address = address;
             Online = online;
@@ -29,6 +29,5 @@ namespace MMP.Domain.Models.Classes
 
         /* EF Relations */
         public IEnumerable<Class> Classes { get; set; }
-        public Guid VenueId { get; }
     }
 }
